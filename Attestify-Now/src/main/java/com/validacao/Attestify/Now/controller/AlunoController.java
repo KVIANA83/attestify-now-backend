@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import java.util.List;
 
-@RestControler
+@RestController
 @AllArgsConstructor
 @RequestMapping("/alunos")
 public class AlunoController {
@@ -27,14 +27,32 @@ public class AlunoController {
     @GetMapping("/listar")
     public ResponseEntity<list<AlunoDTO>> listarAlunos() {
 
-            return ResponseEntity.ok(usuarioService.listarTodos());
+        return ResponseEntity.ok(usuarioService.listarTodos());
     }
 
+// Buscar alunos por id, nome, turma e curso
     @GetMapping("/buscar/{id}")
     public ResponseEntity<Aluno> getAluno(@PathVariable Long id) {
 
         return ResponseEntity.ok(alunoService.pegarAlunoPeloId(id));
-        
+    }
+
+    @GetMapping("/buscar/{nome}")
+    public ResponseEntity<Aluno> getAluno(@PathVariable String nome) {
+
+        return ResponseEntity.ok(alunoService.pegarAlunoPeloNome(nome));
+    }
+
+    @GetMapping("/buscar/{turma}")
+    public ResponseEntity<Aluno> getAluno(@PathVariable String turma) {
+
+        return ResponseEntity.ok(alunoService.pegarAlunoPorTurma(turma));
+    }
+
+    @GetMapping("/buscar/{curso}")
+    public ResponseEntity<Aluno> getAluno(@PathVariable String curso) {
+
+        return ResponseEntity.ok(alunoService.pegarAlunoPorCurso(curso));
     }
 
     @PostMapping("/criar")
