@@ -36,8 +36,9 @@ public class LoginController {
         // Verifica se o profissional é educador ou não educador
         if ("educador".equals(profissional.getCargo())) {
             
+            return ResponseEntity.ok().body("Seu perfil é Educador!");
         } else {
-            
+            return ResponseEntity.ok().body("Seu perfil não é Educador!");
         }
         
         return ResponseEntity.ok().body(profissional);
