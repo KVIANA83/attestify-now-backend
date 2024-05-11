@@ -20,18 +20,18 @@ public class LoginController {
     
     // login para administrador
     @PostMapping("/login/admin")
-    public ResponseEntity<?> loginAdmin(@Valid @RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<?> loginAdmin(@Valid @RequestBody LoginAdminDTO loginAdminDTO) {
 
-        var admin = loginService.validaLoginAdmin(loginDTO);
+        var admin = loginService.validaLoginAdmin(loginAdminDTO);
 
         return ResponseEntity.ok().body(admin);
     }    
 
     // login para profissional educador e não educador
     @PostMapping("/login/profissional")
-    public ResponseEntity<?> loginProfissional(@Valid @RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<?> loginProfissional(@Valid @RequestBody LoginProfissionalDTO loginProfissionalDTO) {
 
-        var profissional = loginService.validaLoginProfissional(loginDTO);
+        var profissional = loginService.validaLoginProfissional(loginProfissionalDTO);
 
         // Verifica se o profissional é educador ou não educador
         if ("educador".equals(profissional.getCargo())) {
@@ -53,4 +53,4 @@ public class LoginController {
         return ResponseEntity.ok().body(aluno);
     }
     
-}
+        }
