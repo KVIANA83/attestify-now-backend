@@ -3,8 +3,11 @@ package com.validacao.Attestify.Now.service;
 import org.springframework.stereotype.Service;
 
 import com.validacao.Attestify.Now.dto.LoginDTO;
+import com.validacao.Attestify.Now.dto.LoginProfissionalDTO;
+import com.validacao.Attestify.Now.dto.LoginAdminDTO;
+
 import com.validacao.Attestify.Now.exceptions.ValidacaoException;
-import com.validacao.Attestify.Now.model.Administrador;
+import com.validacao.Attestify.Now.model.Administradores;
 import com.validacao.Attestify.Now.model.Profissional;    
 import com.validacao.Attestify.Now.model.Aluno;
 
@@ -14,14 +17,14 @@ import lombok.AllArgsConstructor;
 @Service
 public class LoginService {
     
-    private final AdministradorService administradorService;
+    private final AdministradoresService administradoresService;
     private final ProfissionalService profissionalService;    
     private final AlunoService alunoService;
     
     // login para administrador
-    public Administrador validaLoginAdmin(LoginAdminDTO loginAdminDTO) {
+    public Administradores validaLoginAdmin(LoginAdminDTO loginAdminDTO) {
 
-        var adminOpt = administradorService.getAdmin(loginAdminDTO.getUsername());
+        var adminOpt = administradoresService.getAdmin(loginAdminDTO.getUsername());
 
         if (!adminOpt.isPresent()) {
             throw new ValidacaoException("Administrador não cadastrado!");
@@ -36,9 +39,9 @@ public class LoginService {
     }    
     
     // login para profissional educador e nao educador
-    public Profissional validaLoginProfissional(LoginDTO loginDTO) {
+    public Profissional validaLoginProfissional(LoginProfissionalDTO loginProfissionalDTO) {
 
-        var profissionalOpt = profissionalService.getProfissional(loginDTO.getUsername());
+        var profissionalOpt = profissionalService.getProfissional(loginProfissionalDTO.getUsername());
 
         if (!profissionalOpt.isPresent()) {
             throw new ValidacaoException("Profissional não cadastrado!");
@@ -51,7 +54,7 @@ public class LoginService {
             throw new ValidacaoException("Somente Profissional Educador podem fazer login aqui!");
         }
         
-        if (!loginDTO.getPassword().equals(profissional.getSenha())) {
+        if (!loginProfissionalDTO.getPassword().equals(profissional.getSenha())) {
             throw new ValidacaoException("Login ou senha incorretos!");
         }
 
@@ -75,4 +78,4 @@ public class LoginService {
         return aluno;
     }    
     
-}
+                                                                  }
