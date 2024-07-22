@@ -5,10 +5,9 @@ import org.springframework.stereotype.Service;
 import com.validacao.Attestify.Now.dto.LoginDTO;
 import com.validacao.Attestify.Now.dto.LoginProfissionalDTO;
 import com.validacao.Attestify.Now.dto.LoginAdminDTO;
-
 import com.validacao.Attestify.Now.exceptions.ValidacaoException;
 import com.validacao.Attestify.Now.model.Administradores;
-import com.validacao.Attestify.Now.model.Profissional;    
+import com.validacao.Attestify.Now.model.Profissional;
 import com.validacao.Attestify.Now.model.Aluno;
 
 import lombok.AllArgsConstructor;
@@ -26,7 +25,7 @@ public class LoginService {
 
         var adminOpt = administradoresService.getAdmin(loginAdminDTO.getUsername());
 
-        if (!adminOpt.isPresent()) {
+        if (adminOpt.isEmpty()) {
             throw new ValidacaoException("Administrador não cadastrado!");
         }
 
@@ -38,12 +37,12 @@ public class LoginService {
         return admin;
     }    
     
-    // login para profissional educador e nao educador
+    // login para profissional educador e não educador
     public Profissional validaLoginProfissional(LoginProfissionalDTO loginProfissionalDTO) {
 
         var profissionalOpt = profissionalService.getProfissional(loginProfissionalDTO.getUsername());
 
-        if (!profissionalOpt.isPresent()) {
+        if (profissionalOpt.isEmpty()) {
             throw new ValidacaoException("Profissional não cadastrado!");
         }
 
@@ -51,7 +50,7 @@ public class LoginService {
         
         // Verifica se o profissional é educador
         if (!"educador".equals(profissional.getCargo())) {
-            throw new ValidacaoException("Somente Profissional Educador podem fazer login aqui!");
+            throw new ValidacaoException("Somente Profissionais Educadores podem fazer login aqui!");
         }
         
         if (!loginProfissionalDTO.getPassword().equals(profissional.getSenha())) {
@@ -66,8 +65,8 @@ public class LoginService {
 
         var alunoOpt = alunoService.getAluno(loginDTO.getUsername());
 
-        if (!alunoOpt.isPresent()) {
-            throw new ValidacaoException("Aluno não encontrado. Favor entre em contato com a secretaria!");
+        if (alunoOpt.isEmpty()) {
+            throw new ValidacaoException("Aluno não encontrado. Favor entrar em contato com a secretaria!");
         }
 
         var aluno = alunoOpt.get();
@@ -77,5 +76,4 @@ public class LoginService {
 
         return aluno;
     }    
-    
-                                                                  }
+}
