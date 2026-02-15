@@ -1,12 +1,11 @@
 package com.validacao.Attestify.Now.controller;
 
 import com.validacao.Attestify.Now.dto.LoginDTO;
-import com.validacao.Attestity.Now.service.LoginService;
-import com.validacao.Attestify.Now.model.Profissional;
+import com.validacao.Attestify.Now.model.Usuario;
+import com.validacao.Attestify.Now.services.LoginService;
+
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-
-import java.net.http.HttpClient;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,42 +14,11 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequestMapping("/login")
 public class LoginController {
-    
-    private final LoginService service;
-    
-    // login para administrador
-    @PostMapping("/login/admin")
-    public ResponseEntity<?> loginAdmin(@Valid @RequestBody LoginAdminDTO loginAdminDTO) {
 
-        var admin = loginService.validaLoginAdmin(loginAdminDTO);
+    private final LoginService service = null;
 
-        return ResponseEntity.ok().body(admin);
-    }    
-
-    // login para profissional educador e não educador
-    @PostMapping("/login/profissional")
-    public ResponseEntity<?> loginProfissional(@Valid @RequestBody LoginProfissionalDTO loginProfissionalDTO) {
-
-        var profissional = loginService.validaLoginProfissional(loginProfissionalDTO);
-
-        // Verifica se o profissional é educador ou não educador
-        if ("educador".equals(profissional.getCargo())) {
-            
-            return ResponseEntity.ok().body("Seu perfil é Educador!");
-        } else {
-            return ResponseEntity.ok().body("Seu perfil não é Educador!");
-        }
-        
-        return ResponseEntity.ok().body(profissional);
+    @PostMapping
+    public ResponseEntity<Usuario> login(@Valid @RequestBody LoginDTO dto) {
+        return ResponseEntity.ok(service.login(dto));
     }
-
-    // login para aluno 
-    @PostMapping("/login/aluno")
-    public ResponseEntity<?> loginAluno(@Valid @RequestBody LoginDTO loginDTO) {
-        
-        var aluno = loginService.validaLoginAluno(loginDTO);
-        
-        return ResponseEntity.ok().body(aluno);
-    }
-    
-        }
+}

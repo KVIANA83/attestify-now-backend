@@ -8,6 +8,10 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class ErrorBody {
-    
+
+    static Object builder() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     private String mensagem;
 }

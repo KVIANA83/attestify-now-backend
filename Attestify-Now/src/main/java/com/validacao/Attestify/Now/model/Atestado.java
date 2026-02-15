@@ -32,4 +32,15 @@ public class Atestado {
     
     @Column(name = "data_entrega")
     private LocalDate dataEntrega;
+
+    // muitos atestados podem ser do mesmo profissional
+    @ManyToOne
+    @JoinColumn(name = "fk_profissional_id_profissional")
+    private Profissional profissional;
+
+    // muitos atestados podem ser do mesmo aluno
+    @ManyToOne
+    @JoinColumn(name = "fk_aluno_id_aluno")
+    private Aluno aluno;
+    
 }

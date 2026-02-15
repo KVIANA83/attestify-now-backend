@@ -4,18 +4,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
-public class GenericExceptionHandler extends ResponseEntityExceptionHandler {
-    
-    @ExceptionHandler(ValidacaoException.class)
-    public final ResponseEntity <ErrorBody> lancaExcessao(ValidacaoException ex) {
-        
-        var errorBody = ErrorBody.builder();
-            .mensagem(ex.getMessage())
-            .build();
+public class GenericExceptionHandler {
 
-        return new ResponseEntity<ErrorBody>(errorBody, HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(ValidacaoException.class)
+    public ResponseEntity<ErrorBody> handleValidacaoException(ValidacaoException ex) {
+
+        ErrorBody errorBody = ErrorBody.builder()
+                .mensagem(ex.getMessage())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorBody> handleGenericException(Exception ex) {
+
+        ErrorBody errorBody = ErrorBody.builder()
+                .mensagem("Ocorreu um erro inesperado.")
+                .build();
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorBody);
     }
 }

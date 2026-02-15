@@ -37,7 +37,7 @@ public class Aluno {
     private String rg;
     
     @Column
-    private Long cpf;
+    private String cpf;
     
     @Column(name = "nome_responsavel")
     private String nomeResponsavel;

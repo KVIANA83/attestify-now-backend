@@ -1,4 +1,4 @@
-package com.validacao.Attestify.Now.service;
+package com.validacao.Attestify.Now.services;
 
 import com.validacao.Attestify.Now.dto.AtestadoDTO;
 import com.validacao.Attestify.Now.exceptions.ValidacaoException;

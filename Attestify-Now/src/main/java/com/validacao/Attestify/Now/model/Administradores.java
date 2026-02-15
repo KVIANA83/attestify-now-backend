@@ -37,7 +37,7 @@ public class Administradores {
     private String rg;
     
     @Column
-    private Long cpf;
+    private String cpf;
     
     @Column
     private String contato;
@@ -59,4 +59,9 @@ public class Administradores {
     
     @Column
     private String cargo;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_atestado_id_atestado")
+    private Atestado atestado;
+
 }

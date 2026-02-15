@@ -1,4 +1,4 @@
-package com.validacao.Attestify.Now.repositories;
+package com.validacao.Attestify.Now.repository;
 
 import com.validacao.Attestify.Now.model.Administradores;
 import org.springframework.data.jpa.repository.JpaRepository;

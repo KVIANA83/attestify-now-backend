@@ -2,14 +2,17 @@ package com.validacao.Attestify.Now.controller;
 
 import com.validacao.Attestify.Now.dto.CreateProfissionalDTO;
 import com.validacao.Attestify.Now.dto.ProfissionalDTO;
-import com.validacao.Attestify.Now.model.Profissional;
-import com.validacao.Attestify.Now.service.ProfissionalService;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+
 import java.util.List;
+
+import com.validacao.Attestify.Now.services.ProfissionalService;
 
 @RestController
 @AllArgsConstructor
@@ -48,15 +51,16 @@ public class ProfissionalController {
 
     // Endpoint para criar um novo profissional
     @PostMapping("/criar")
-    public ResponseEntity<Void> criarProfissional(@Valid @RequestBody CreateProfissionalDTO profissionalDTO) {
-        profissionalService.saveProfissional(profissionalDTO);
+    public ResponseEntity<Void> criarProfissional(@Valid @RequestBody CreateProfissionalDTO dto) {
+        profissionalService.saveProfissional(dto);
         return ResponseEntity.noContent().build();
     }
 
     // Endpoint para atualizar um profissional existente
-    @PostMapping("/atualizar/{id}")
-    public ResponseEntity<Void> atualizarProfissional(@PathVariable Long id, @Valid @RequestBody CreateProfissionalDTO profissionalAtualizar) {
-        profissionalService.atualizarProfissional(profissionalAtualizar, id);
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity<Void> atualizarProfissional(@PathVariable Long id,
+                                                      @Valid @RequestBody CreateProfissionalDTO dto) {
+        profissionalService.atualizarProfissional(dto, id);
         return ResponseEntity.noContent().build();
     }
     

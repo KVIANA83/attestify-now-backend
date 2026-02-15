@@ -10,12 +10,12 @@ import java.time.LocalDate;
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsCobstructor
+@NoArgsConstructor
 public class AtestadoDTO {
     
     private Long idAtestado;
     private String urlArquivo;
     private String status;
     private LocalDate dataSolicitacao;
-    private LocalDate dateEntrega;
+    private LocalDate dataEntrega;
 }

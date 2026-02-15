@@ -56,7 +56,7 @@ public class AdministradoresController {
     // Endpoint para deletar um administrador por ID
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Void> deletarAdministrador(@PathVariable Long id) {
-        administradoresService.deletarAdministrador(id);
+        AdministradoresService.deletarAdministrador(id);
         return ResponseEntity.noContent().build();
     }
 }
