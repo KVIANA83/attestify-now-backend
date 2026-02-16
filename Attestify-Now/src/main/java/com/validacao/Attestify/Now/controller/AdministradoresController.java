@@ -27,20 +27,20 @@ public class AdministradoresController {
     // Endpoint para buscar administrador por ID
     @GetMapping("/buscar/id/{id}")
     public ResponseEntity<AdministradoresDTO> getAdministradorPorId(@PathVariable Long id) {
-        AdministradoresDTO administrador = administradoresService.pegarAdministradoresPeloId(id);
+        AdministradoresDTO administrador = administradoresService.buscarAdministradoresPeloId(id);
         return ResponseEntity.ok(administrador);
     }
 
     // Endpoint para buscar administradores por nome
     @GetMapping("/buscar/nome/{nome}")
     public ResponseEntity<List<AdministradoresDTO>> getAdministradorPorNome(@PathVariable String nome) {
-        List<AdministradoresDTO> administradores = administradoresService.pegarAdministradoresPeloNome(nome);
+        List<AdministradoresDTO> administradores = administradoresService.buscarAdministradoresPeloNome(nome);
         return ResponseEntity.ok(administradores);
     }
 
     // Endpoint para criar um novo administrador
     @PostMapping("/criar")
-    public ResponseEntity<Void> criarAdministrador(@Valid @RequestBody CreateAdministradorDTO administradorDTO) {
+    public ResponseEntity<Void> criarAdministrador(@Valid @RequestBody AdministradoresDTO administradorDTO) {
         administradoresService.saveAdministrador(administradorDTO);
         return ResponseEntity.noContent().build();
     }
