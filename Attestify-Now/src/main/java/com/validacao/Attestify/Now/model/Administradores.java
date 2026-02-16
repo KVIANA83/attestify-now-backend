@@ -24,42 +24,14 @@ public class Administradores {
     @Column(name = "nome_completo")
     private String nomeCompleto;
     
-    @Column(name = "data_nascimento")
-    private LocalDate dataNascimento;
-    
-    @Column
-    private String endereco;
-    
-    @Column
-    private String sexo;
-    
-    @Column
-    private String rg;
-    
-    @Column
-    private String cpf;
-    
-    @Column
-    private String contato;
-    
-    @Column
-    private String email;
-    
-    @Column
-    private String login;
-    
-    @Column
-    private String senha;
-    
-    @Column(name = "perfil_login")
-    private String perfilLogin;
-    
-    @Column
-    private String instituicao;
-    
+   
     @Column
     private String cargo;
 
+    @OneToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+    
     @ManyToOne
     @JoinColumn(name = "fk_atestado_id_atestado")
     private Atestado atestado;

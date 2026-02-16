@@ -6,8 +6,9 @@ import com.validacao.Attestify.Now.model.Atestado;
 import com.validacao.Attestify.Now.model.Administradores;
 import com.validacao.Attestify.Now.model.Aluno;
 import com.validacao.Attestify.Now.model.Profissional;
-import com.validacao.Attestify.Now.repositories.AtestadoRepository;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+import com.validacao.Attestify.Now.repository.AtestadoRepository;
+
+@       
 @Service
 public class AtestadoService {
 

@@ -3,7 +3,8 @@ package com.validacao.Attestify.Now.services;
 import com.validacao.Attestify.Now.dto.AdministradoresDTO;
 import com.validacao.Attestify.Now.exceptions.ValidacaoException;
 import com.validacao.Attestify.Now.model.Administradores;
-import com.validacao.Attestify.Now.repositories.AdministradoresRepository;
+import com.validacao.Attestify.Now.repository.AdministradoresRepository;
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,8 @@ import java.util.stream.Collectors;
 @Service
 public class AdministradoresService {
 
-    private final AdministradoresRepository administradoresRepository;
+    private final AdministradoresRepository administradoresRepository = null;
+    private final AdministradoresDTO administradoresDTO = null;
 
     // Listar todos os administradores
     public List<AdministradoresDTO> listarTodos() {
@@ -54,21 +56,36 @@ public class AdministradoresService {
 
     // Método para converter a entidade Administradores para DTO
     private AdministradoresDTO convertToDTO(Administradores administrador) {
-        return new AdministradoresDTO(
-                administrador.getIdAdministradores(),
-                administrador.getNomeCompleto(),
-                administrador.getDataNascimento(),
-                administrador.getEndereco(),
-                administrador.getSexo(),
-                administrador.getRg(),
-                administrador.getCpf(),
-                administrador.getContato(),
-                administrador.getEmail(),
-                administrador.getLogin(),
-                administrador.getSenha(),
-                administrador.getPerfilLogin(),
-                administrador.getInstituicao(),
-                administrador.getCargo()
-        );
+        return AdministradoresDTO.builder()
+                .idAdministradores(administrador.getIdAdministradores())
+                .nomeCompleto(administrador.getNomeCompleto())
+                .dataNascimento(administrador.getDataNascimento())
+                .endereco(administrador.getEndereco())
+                .sexo(administrador.getSexo())
+                .rg(administrador.getRg())
+                .cpf(administrador.getCpf())
+                .contato(administrador.getContato())
+                .email(administrador.getEmail())
+                .login(administrador.getLogin())
+                .senha(administrador.getSenha())
+                .perfilLogin(administrador.getPerfilLogin())
+                .instituicao(administrador.getInstituicao())
+                .cargo(administrador.getCargo())
+                .build();
+    }
+
+    // Método para criar um novo administrador
+    public AdministradoresDTO criar(Administradores administradores) {
+        Administradores salvar = administradoresRepository.save(administradores);
+        return convertToDTO(salvar);
+    } 
+
+    // Método para deletar um administrador por ID
+    public void deletarAdministradores(Long id) {
+        Administradores administrador = administradoresRepository.findById(id)
+                .orElseThrow(() -> 
+                        new ValidacaoException("Administrador não encontrado pelo ID: " + idAdministradores));
+
+        administradoresRepository.delete(administrador);
     }
 }

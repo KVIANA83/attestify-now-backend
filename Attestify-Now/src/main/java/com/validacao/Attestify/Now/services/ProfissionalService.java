@@ -107,7 +107,7 @@ public class ProfissionalService {
     // Método para converter a entidade Profissional para DTO
    private ProfissionalDTO converterParaDTO(Profissional p) {
         return ProfissionalDTO.builder()
-                .id(p.getId())
+                .idProfissional(p.getIdProfissional())
                 .nomeCompleto(p.getNomeCompleto())
                 .email(p.getEmail())
                 .contato(p.getContato())

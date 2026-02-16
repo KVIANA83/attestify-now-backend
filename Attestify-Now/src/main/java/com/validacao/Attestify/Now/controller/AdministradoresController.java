@@ -1,9 +1,8 @@
 package com.validacao.Attestify.Now.controller;
 
-import com.validacao.Attestify.Now.dto.CreateAdministradorDTO;
-import com.validacao.Attestify.Now.dto.AdministradorDTO;
-import com.validacao.Attestify.Now.model.Administrador;
-import com.validacao.Attestify.Now.service.AdministradoresService;
+import com.validacao.Attestify.Now.dto.AdministradoresDTO;
+import com.validacao.Attestify.Now.model.Administradores;
+import com.validacao.Attestify.Now.services.AdministradoresService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,26 +15,26 @@ import java.util.List;
 @RequestMapping("/administradores")
 public class AdministradoresController {
     
-    private final AdministradoresService administradoresService;
+    private final AdministradoresService administradoresService = null;
 
     // Endpoint para listar todos os administradores
     @GetMapping("/listar")
-    public ResponseEntity<List<AdministradorDTO>> listarAdministradores() {
-        List<AdministradorDTO> administradores = administradoresService.listarTodos();
+    public ResponseEntity<List<AdministradoresDTO>> listarAdministradores() {
+        List<AdministradoresDTO> administradores = administradoresService.listarTodos();
         return ResponseEntity.ok(administradores);
     }
 
     // Endpoint para buscar administrador por ID
     @GetMapping("/buscar/id/{id}")
-    public ResponseEntity<AdministradorDTO> getAdministradorPorId(@PathVariable Long id) {
-        AdministradorDTO administrador = administradoresService.pegarAdministradorPeloId(id);
+    public ResponseEntity<AdministradoresDTO> getAdministradorPorId(@PathVariable Long id) {
+        AdministradoresDTO administrador = administradoresService.pegarAdministradoresPeloId(id);
         return ResponseEntity.ok(administrador);
     }
 
     // Endpoint para buscar administradores por nome
     @GetMapping("/buscar/nome/{nome}")
-    public ResponseEntity<List<AdministradorDTO>> getAdministradorPorNome(@PathVariable String nome) {
-        List<AdministradorDTO> administradores = administradoresService.pegarAdministradorPeloNome(nome);
+    public ResponseEntity<List<AdministradoresDTO>> getAdministradorPorNome(@PathVariable String nome) {
+        List<AdministradoresDTO> administradores = administradoresService.pegarAdministradoresPeloNome(nome);
         return ResponseEntity.ok(administradores);
     }
 
@@ -56,7 +55,7 @@ public class AdministradoresController {
     // Endpoint para deletar um administrador por ID
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Void> deletarAdministrador(@PathVariable Long id) {
-        AdministradoresService.deletarAdministrador(id);
+        administradoresService.deletarAdministradores(id);
         return ResponseEntity.noContent().build();
     }
 }

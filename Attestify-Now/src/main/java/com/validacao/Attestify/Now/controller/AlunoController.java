@@ -3,8 +3,9 @@ package com.validacao.Attestify.Now.controller;
 import com.validacao.Attestify.Now.dto.CreateAlunoDTO;
 import com.validacao.Attestify.Now.dto.AlunoDTO;
 import com.validacao.Attestify.Now.model.Aluno;
-import com.validacao.Attestify.Now.service.AlunoService;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+
 import java.util.List;
+
+import com.validacao.Attestify.Now.services.AlunoService;
 
 @RestController
 @AllArgsConstructor
@@ -26,9 +30,9 @@ public class AlunoController {
 
     // Endpoint para listar todos os alunos
     @GetMapping("/listar")
-    public ResponseEntity<list<AlunoDTO>> listarAlunos() {
+    public ResponseEntity<List<AlunoDTO>> listarAlunos() {
 
-        return ResponseEntity.ok(usuarioService.listarTodos());
+        return ResponseEntity.ok(alunoService.listarTodos());
     }
 
     // Endpoint para buscar aluno por ID

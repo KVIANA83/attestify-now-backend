@@ -3,7 +3,7 @@ package com.validacao.Attestify.Now.controller;
 import com.validacao.Attestify.Now.dto.CreateAtestadoDTO;
 import com.validacao.Attestify.Now.dto.AtestadoDTO;
 import com.validacao.Attestify.Now.model.Atestado;
-import com.validacao.Attestify.Now.service.AtestadoService;
+import com.validacao.Attestify.Now.services.AtestadoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/atestados")
 public class AtestadoController {
 
-    private final AtestadoService atestadoService;
+    private final AtestadoService atestadoService = null;
 
     // Endpoint para listar todos os atestados
     @GetMapping("/listar")

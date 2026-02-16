@@ -24,4 +24,8 @@ public class Profissional extends Usuario {
     
     @Column
     private String cargo;
+
+    @OneToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 }
