@@ -15,17 +15,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "profissional")
+@PrimaryKeyJoinColumn(name = "usuario_id")
 public class Profissional extends Usuario {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_profissional")
-    private Long idProfissional;
     
     @Column
     private String cargo;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
 }

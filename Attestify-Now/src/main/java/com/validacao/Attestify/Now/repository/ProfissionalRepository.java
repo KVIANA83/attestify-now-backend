@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProfissionalRepository extends JpaRepository<Profissional, Long>{
     
-    List<Profissional> findByNomeCompleto(String nomeCompleto);
+    List<Profissional> findByNomeCompletoContainingIgnoreCase(String nomeCompleto);
     
     List<Profissional> findByCargo(String cargo);
 

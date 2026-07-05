@@ -6,12 +6,12 @@ public enum PerfilEnum {
     
     ADMINISTRADORES,
     ALUNO,
-    PROFSSIONAL;
+    PROFISSIONAL;
 
 
     public static PerfilEnum pegarEnumPeloPerfil(String perfil) {
         for (PerfilEnum perfilEnum : PerfilEnum.values()) {
-            if (perfil.equals(perfilEnum.name())) {
+            if (perfil.equalsIgnoreCase(perfilEnum.name())) {
                 return perfilEnum;
             }
         }

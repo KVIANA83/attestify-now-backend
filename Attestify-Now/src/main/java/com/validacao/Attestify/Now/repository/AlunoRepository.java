@@ -4,15 +4,17 @@ import com.validacao.Attestify.Now.model.Aluno;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
     
-    Optional<Aluno> findByNomeCompleto(String nomeCompleto);
+    List<Aluno> findByNomeCompletoContainingIgnoreCase(String nomeCompleto);
     
-    Optional<Aluno> findByTurma(String turma);
+    List<Aluno> findByTurma(String turma);
+
+    List<Aluno> findByModalidade(String modalidade);
     
-    Optional<Aluno> findByCurso(String curso);
+    List<Aluno> findByTurno(String turno);
     
 }

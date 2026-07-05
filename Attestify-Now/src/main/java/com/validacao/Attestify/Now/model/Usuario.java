@@ -26,40 +26,40 @@ public class Usuario {
     @Column(name = "id_usuario")
     private Long id;
 
-    @Column(name = "nome_completo")
+    @Column(name = "nome_completo", nullable = false)
     private String nomeCompleto;
 
-    @Column(name = "data_nascimento")
+    @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
 
-    @Column
+    @Column(nullable = false)
     private String endereco;
 
-    @Column
+    @Column(nullable = false)
     private String sexo;
 
-    @Column
+    @Column(nullable = false)
     private String rg;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String cpf;
 
-    @Column
+    @Column(nullable = false)
     private String contato;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String login;
 
-    @Column
+    @Column(nullable = false)
     private String senha;
 
-    @Column(name = "perfil_login")
+    @Column(name = "perfil_login", nullable = false)
     private String perfilLogin;
     
-    @Column
+    @Column(nullable = false)
     private String instituicao;
 
 }

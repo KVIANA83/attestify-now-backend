@@ -22,7 +22,7 @@ public class GenericExceptionHandler {
     public ResponseEntity<ErrorBody> handleGenericException(Exception ex) {
 
         ErrorBody errorBody = ErrorBody.builder()
-                .mensagem("Ocorreu um erro inesperado.")
+                .mensagem(ex.getMessage() != null ? ex.getMessage() : "Ocorreu um erro inesperado.")
                 .build();
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorBody);

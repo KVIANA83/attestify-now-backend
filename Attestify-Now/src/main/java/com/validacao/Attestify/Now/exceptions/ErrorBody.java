@@ -10,8 +10,9 @@ import lombok.Data;
 public class ErrorBody {
 
     static Object builder() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new ValidacaoException("Ocorreu um erro esperado.");
     }
 
     private String mensagem;
+    
 }

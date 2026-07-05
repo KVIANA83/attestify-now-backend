@@ -12,7 +12,7 @@ public enum StatusEnum {
 
     public static StatusEnum pegarEnumPeloStatus(String status) {
         for (StatusEnum statusEnum : StatusEnum.values()) {
-            if (status.equals(statusEnum.name())) {
+            if (status.equalsIgnoreCase(statusEnum.name())) {
                 return statusEnum;
             }
         }

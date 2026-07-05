@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateProfissionalDTO {
+public class CreateAdministradorDTO {
 
     @NotBlank(message = "Nome completo é um campo obrigatório!")
     private String nomeCompleto;

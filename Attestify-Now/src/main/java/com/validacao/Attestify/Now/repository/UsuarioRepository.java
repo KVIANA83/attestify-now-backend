@@ -11,5 +11,9 @@ import com.validacao.Attestify.Now.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     Optional<Usuario> findByLogin(String login);
+
+    Optional<Usuario> findByEmail(String email);
+
+    Optional<Usuario> findByCpf(String cpf);
 }
 
