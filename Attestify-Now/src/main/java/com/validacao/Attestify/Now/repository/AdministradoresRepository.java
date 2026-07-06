@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface AdministradoresRepository extends JpaRepository<Administradores, Long>{
     
-    List<Administradores> findByNomeContainingIgnoreCase(String nome);
+    List<Administradores> findByNomeContainingIgnoreCase(String nomeCompleto);
 
     List<Administradores> findByCargo(String cargo);
 

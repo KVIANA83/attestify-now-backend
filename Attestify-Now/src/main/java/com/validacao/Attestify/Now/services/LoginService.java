@@ -12,17 +12,12 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class LoginService {
 
-    private final UsuarioService usuarioService = null;
+    private final UsuarioService usuarioService;
 
     public Usuario login(LoginDTO dto) {
 
-        var usuarioOpt = usuarioService.buscarPorLogin(dto.getLogin());
-
-        if (usuarioOpt.isEmpty()) {
-            throw new ValidacaoException("Usuário não encontrado!");
-        }
-
-        var usuario = usuarioOpt.get();
+        Usuario usuario = usuarioService.buscarPorLogin(dto.getLogin())
+                .orElseThrow(() -> new ValidacaoException("Usuário não encontrado!"));
 
         if (!usuario.getSenha().equals(dto.getSenha())) {
             throw new ValidacaoException("Login ou senha incorretos!");

@@ -1,27 +1,25 @@
 package com.validacao.Attestify.Now.services;
 
-import com.validacao.Attestify.Now.dto.ProfissionalDTO;
-import com.validacao.Attestify.Now.dto.CreateProfissionalDTO;
-import com.validacao.Attestify.Now.exceptions.ValidacaoException;
-import com.validacao.Attestify.Now.model.Profissional;
-import com.validacao.Attestify.Now.repositories.ProfissionalRepository;
-
-import lombok.AllArgsConstructor;
-
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
+import com.validacao.Attestify.Now.dto.CreateProfissionalDTO;
+import com.validacao.Attestify.Now.dto.ProfissionalDTO;
+import com.validacao.Attestify.Now.exceptions.ValidacaoException;
+import com.validacao.Attestify.Now.model.Profissional;
 import com.validacao.Attestify.Now.repository.ProfissionalRepository;
+
+import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
 public class ProfissionalService {
 
-    private final ProfissionalRepository repository = null;
+    private final ProfissionalRepository repository;
 
-    // Método para listar todos os profissionais
+    // Listar todos
     public List<ProfissionalDTO> listarTodos() {
         return repository.findAll()
                 .stream()
@@ -29,32 +27,37 @@ public class ProfissionalService {
                 .collect(Collectors.toList());
     }
 
-    // Método para buscar um profissional pelo ID
-    public ProfissionalDTO pegarProfissionalPeloId(Long id) {
-        return repository.findById(id)
-                .map(this::converterParaDTO)
-                .orElseThrow(() -> new ValidacaoException("Profissional não encontrado!"));
+    // Buscar por ID
+    public ProfissionalDTO buscarPorId(Long id) {
+
+        Profissional profissional = repository.findById(id)
+                .orElseThrow(() ->
+                        new ValidacaoException("Profissional não encontrado."));
+
+        return converterParaDTO(profissional);
     }
 
+    // Buscar por nome
+    public List<ProfissionalDTO> buscarPorNome(String nomeCompleto) {
 
-    // Método para buscar profissionais pelo nome completo
-    public List<ProfissionalDTO> pegarProfissionalPeloNome(String nome) {
-        return repository.findByNomeCompleto(nome)
+        return repository.findByNomeCompleto(nomeCompleto)
                 .stream()
                 .map(this::converterParaDTO)
                 .collect(Collectors.toList());
     }
 
-    // Método para buscar profissionais pelo cargo
-    public List<ProfissionalDTO> pegarProfissionalPorCargo(String cargo) {
+    // Buscar por cargo
+    public List<ProfissionalDTO> buscarPorCargo(String cargo) {
+
         return repository.findByCargo(cargo)
                 .stream()
                 .map(this::converterParaDTO)
                 .collect(Collectors.toList());
     }
 
-    // Método para criar um novo profissional
-    public void saveProfissional(CreateProfissionalDTO dto) {
+    // Salvar
+    public Profissional salvar(CreateProfissionalDTO dto) {
+
         Profissional profissional = new Profissional();
 
         profissional.setNomeCompleto(dto.getNomeCompleto());
@@ -69,51 +72,57 @@ public class ProfissionalService {
         profissional.setSenha(dto.getSenha());
         profissional.setPerfilLogin(dto.getPerfilLogin());
         profissional.setInstituicao(dto.getInstituicao());
-
         profissional.setCargo(dto.getCargo());
 
-        repository.save(profissional);
+        return repository.save(profissional);
     }
 
-    // Método para atualizar um profissional existente
-    public Profissional atualizarProfissional(CreateProfissionalDTO profissionalDTO, Long id) {
-        Profissional profissional = profissionalRepository.findById(id)
-                .orElseThrow(() -> new ValidacaoException("Profissional não encontrado com ID: " + id));
-        
-        profissional.setNomeCompleto(profissionalDTO.getNomeCompleto());
-        profissional.setDataNascimento(profissionalDTO.getDataNascimento());
-        profissional.setEndereco(profissionalDTO.getEndereco());
-        profissional.setSexo(profissionalDTO.getSexo());
-        profissional.setRg(profissionalDTO.getRg());
-        profissional.setCpf(profissionalDTO.getCpf());
-        profissional.setContato(profissionalDTO.getContato());
-        profissional.setEmail(profissionalDTO.getEmail());
-        profissional.setLogin(profissionalDTO.getLogin());
-        profissional.setSenha(profissionalDTO.getSenha());
-        profissional.setPerfilLogin(profissionalDTO.getPerfilLogin());
-        profissional.setInstituicao(profissionalDTO.getInstituicao());
-        profissional.setCargo(profissionalDTO.getCargo());
-        return profissionalRepository.save(profissional);
+    // Atualizar
+    public Profissional atualizar(Long id, CreateProfissionalDTO dto) {
+
+        Profissional profissional = repository.findById(id)
+                .orElseThrow(() ->
+                        new ValidacaoException("Profissional não encontrado."));
+
+        profissional.setNomeCompleto(dto.getNomeCompleto());
+        profissional.setDataNascimento(dto.getDataNascimento());
+        profissional.setEndereco(dto.getEndereco());
+        profissional.setSexo(dto.getSexo());
+        profissional.setRg(dto.getRg());
+        profissional.setCpf(dto.getCpf().toString());
+        profissional.setContato(dto.getContato());
+        profissional.setEmail(dto.getEmail());
+        profissional.setLogin(dto.getLogin());
+        profissional.setSenha(dto.getSenha());
+        profissional.setPerfilLogin(dto.getPerfilLogin());
+        profissional.setInstituicao(dto.getInstituicao());
+        profissional.setCargo(dto.getCargo());
+
+        return repository.save(profissional);
     }
 
-    // Método para deletar um profissional pelo ID
-    public void deletarProfissional(Long id) {
-        if (!repository.existsById(id)) {
-            throw new ValidacaoException("Profissional não encontrado!");
-        }
-        repository.deleteById(id);
+    // Deletar
+    public void deletar(Long id) {
+
+        Profissional profissional = repository.findById(id)
+                .orElseThrow(() ->
+                        new ValidacaoException("Profissional não encontrado."));
+
+        repository.delete(profissional);
     }
 
-    // Método para converter a entidade Profissional para DTO
-   private ProfissionalDTO converterParaDTO(Profissional p) {
+    // Converter para DTO
+    private ProfissionalDTO converterParaDTO(Profissional profissional) {
+
         return ProfissionalDTO.builder()
-                .idProfissional(p.getIdProfissional())
-                .nomeCompleto(p.getNomeCompleto())
-                .email(p.getEmail())
-                .contato(p.getContato())
-                .instituicao(p.getInstituicao())
-                .perfilLogin(p.getPerfilLogin())
-                .cargo(p.getCargo())
+                .nomeCompleto(profissional.getNomeCompleto())
+                .sexo(profissional.getSexo())
+                .contato(profissional.getContato())
+                .email(profissional.getEmail())
+                .instituicao(profissional.getInstituicao())
+                .cargo(profissional.getCargo())
+                .perfilLogin(profissional.getPerfilLogin())
                 .build();
     }
+
 }

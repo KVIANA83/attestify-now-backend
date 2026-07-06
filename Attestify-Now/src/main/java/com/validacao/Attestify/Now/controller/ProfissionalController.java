@@ -1,73 +1,79 @@
 package com.validacao.Attestify.Now.controller;
 
-import com.validacao.Attestify.Now.dto.CreateProfissionalDTO;
-import com.validacao.Attestify.Now.dto.ProfissionalDTO;
-
-import lombok.AllArgsConstructor;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
-
-import java.util.List;
-
+import com.validacao.Attestify.Now.dto.CreateProfissionalDTO;
+import com.validacao.Attestify.Now.dto.ProfissionalDTO;
+import com.validacao.Attestify.Now.model.Profissional;
 import com.validacao.Attestify.Now.services.ProfissionalService;
+
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/profissional")
+@RequestMapping("/profissionais")
 public class ProfissionalController {
-    
-    private ProfissionalService profissionalService;
 
-    // Endpoint para listar todos os profissionais
+    private final ProfissionalService profissionalService;
+
+    // Listar todos os profissionais
     @GetMapping("/listar")
     public ResponseEntity<List<ProfissionalDTO>> listarProfissionais() {
-        List<ProfissionalDTO> profissionais = profissionalService.listarTodos();
-        return ResponseEntity.ok(profissionais);
+
+        return ResponseEntity.ok(profissionalService.listarTodos());
     }
 
-    // Endpoint para buscar um profissional por ID
+    // Buscar profissional por ID
     @GetMapping("/buscar/id/{id}")
-    public ResponseEntity<ProfissionalDTO> getProfissionalPorId(@PathVariable Long id) {
-        ProfissionalDTO profissional = profissionalService.pegarProfissionalPeloId(id);
-        return ResponseEntity.ok(profissional);
+    public ResponseEntity<ProfissionalDTO> buscarPorId(@PathVariable Long id) {
+
+        return ResponseEntity.ok(profissionalService.pegarProfissionalPeloId(id));
     }
 
-    // Endpoint para buscar profissionais por nome
+    // Buscar profissional por nome
     @GetMapping("/buscar/nome/{nome}")
-    public ResponseEntity<List<ProfissionalDTO>> getProfissionalPorNome(@PathVariable String nome) {
-        List<ProfissionalDTO> profissionais = profissionalService.pegarProfissionalPeloNome(nome);
-        return ResponseEntity.ok(profissionais);
+    public ResponseEntity<List<ProfissionalDTO>> buscarPorNome(@PathVariable String nome) {
+
+        return ResponseEntity.ok(profissionalService.pegarProfissionalPeloNome(nome));
     }
 
-    // Endpoint para buscar profissionais por cargo
+    // Buscar profissional por cargo
     @GetMapping("/buscar/cargo/{cargo}")
-    public ResponseEntity<List<ProfissionalDTO>> getProfissionalPorCargo(@PathVariable String cargo) {
-        List<ProfissionalDTO> profissionais = profissionalService.pegarProfissionalPorCargo(cargo);
-        return ResponseEntity.ok(profissionais);
+    public ResponseEntity<List<ProfissionalDTO>> buscarPorCargo(@PathVariable String cargo) {
+
+        return ResponseEntity.ok(profissionalService.pegarProfissionalPorCargo(cargo));
     }
 
-    // Endpoint para criar um novo profissional
+    // Criar profissional
     @PostMapping("/criar")
-    public ResponseEntity<Void> criarProfissional(@Valid @RequestBody CreateProfissionalDTO dto) {
+    public ResponseEntity<Void> criarProfissional(
+            @Valid @RequestBody CreateProfissionalDTO dto) {
+
         profissionalService.saveProfissional(dto);
+
         return ResponseEntity.noContent().build();
     }
 
-    // Endpoint para atualizar um profissional existente
+    // Atualizar profissional
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<Void> atualizarProfissional(@PathVariable Long id,
-                                                      @Valid @RequestBody CreateProfissionalDTO dto) {
-        profissionalService.atualizarProfissional(dto, id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Profissional> atualizarProfissional(
+            @PathVariable Long id,
+            @Valid @RequestBody CreateProfissionalDTO dto) {
+
+        return ResponseEntity.ok(profissionalService.atualizarProfissional(dto, id));
     }
-    
-    // Endpoint para deletar profissional por id
+
+    // Deletar profissional
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Void> deletarProfissional(@PathVariable Long id) {
+
         profissionalService.deletarProfissional(id);
+
         return ResponseEntity.noContent().build();
     }
+
 }

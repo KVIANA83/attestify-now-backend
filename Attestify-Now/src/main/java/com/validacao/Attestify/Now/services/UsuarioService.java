@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UsuarioService {
 
-    private final UsuarioRepository repository = null;
+    private final UsuarioRepository repository;
 
     public Optional<Usuario> buscarPorLogin(String login) {
         return repository.findByLogin(login);

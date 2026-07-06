@@ -1,26 +1,33 @@
-package com.validacao.Attestify.Now.controller;
+package com.validacao.Attestify.Now.services;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
 
 import com.validacao.Attestify.Now.model.Usuario;
-import com.validacao.Attestify.Now.services.UsuarioService;
+import com.validacao.Attestify.Now.repository.UsuarioRepository;
 
 import lombok.AllArgsConstructor;
 
-@RestController
+@Service
 @AllArgsConstructor
-@RequestMapping("/usuarios")
 public class UsuarioController {
 
-    private final UsuarioService service = null;
+    private final UsuarioRepository repository;
 
-    @PostMapping
-    public ResponseEntity<Usuario> salvar(@RequestBody Usuario usuario) {
-        return ResponseEntity.ok(service.salvar(usuario));
+    public Optional<Usuario> buscarPorLogin(String login) {
+        return repository.findByLogin(login);
+    }
+
+    public Usuario salvar(Usuario usuario) {
+        return repository.save(usuario);
+    }
+
+    public Optional<Usuario> buscarPorId(Long id) {
+        return repository.findById(id);
+    }
+
+    public void deletar(Long id) {
+        repository.deleteById(id);
     }
 }
-
